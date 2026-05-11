@@ -1,2 +1,13 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+	let { data } = $props();
+</script>
+
+<h1>Anime Tracker</h1>
+
+{#each data.anime as anime}
+	<div>
+		<h2>{anime.title}</h2>
+		<p>{anime.genre}</p>
+		<p>{anime.currentEpisode} / {anime.totalEpisodes}</p>
+	</div>
+{/each}

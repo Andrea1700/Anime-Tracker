@@ -1,11 +1,14 @@
 import { connectDB } from '$lib/server/db';
 
 export async function load() {
-    const db = await connectDB();
+	const db = await connectDB();
 
-    const collections = await db.listCollections().toArray();
+	const anime = await db.collection('anime_tracker').find({}).toArray();
 
-    console.log(collections);
-
-    return {};
+	return {
+		anime: anime.map((a) => ({
+			...a,
+			_id: a._id.toString()
+		}))
+	};
 }
