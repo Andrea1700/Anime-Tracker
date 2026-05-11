@@ -4,6 +4,8 @@
 
 <h1>Anime Tracker</h1>
 
+<a href="/anime/add">+ Anime hinzufügen</a>
+
 {#each data.anime as anime}
 	<div>
 		<h2>{anime.title}</h2>
