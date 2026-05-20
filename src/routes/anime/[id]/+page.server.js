@@ -1,6 +1,6 @@
 import { connectDB } from '$lib/server/db';
 import { ObjectId } from 'mongodb';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 export async function load({ params }) {
 	const db = await connectDB();
@@ -43,5 +43,15 @@ export const actions = {
 		return {
 			success: 'Fortschritt wurde erfolgreich aktualisiert.'
 		};
+	},
+
+	deleteAnime: async ({ params }) => {
+		const db = await connectDB();
+
+		await db.collection('anime_tracker').deleteOne({
+			_id: new ObjectId(params.id)
+		});
+
+		throw redirect(303, '/?deleted=1');
 	}
 };

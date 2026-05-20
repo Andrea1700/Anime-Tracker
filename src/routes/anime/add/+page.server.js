@@ -38,6 +38,6 @@ export const actions = {
 			status: 'watching'
 		});
 
-		throw redirect(303, '/');
+		throw redirect(303, '/?success=1');
 	}
 };
