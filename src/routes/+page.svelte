@@ -1,19 +1,45 @@
 <script>
+	import AnimeCard from '$lib/components/AnimeCard.svelte';
+
 	let { data } = $props();
+
+	let selectedGenre = $state('Alle');
+
+	let filteredAnime = $derived(
+		selectedGenre === 'Alle'
+			? data.anime
+			: data.anime.filter((a) => a.genre === selectedGenre)
+	);
 </script>
 
 <h1>Anime Tracker</h1>
 
+<div class="filters">
+	<button
+		class:selected={selectedGenre === 'Alle'}
+		onclick={() => (selectedGenre = 'Alle')}
+	>
+		Alle
+	</button>
+
+	{#each data.genres as genre}
+		<button
+			class:selected={selectedGenre === genre}
+			onclick={() => (selectedGenre = genre)}
+		>
+			{genre}
+		</button>
+	{/each}
+</div>
+
+<br />
+
 {#if data.success}
-	<div class="success">
-		Anime erfolgreich hinzugefügt.
-	</div>
+	<div class="success">Anime erfolgreich hinzugefügt.</div>
 {/if}
 
 {#if data.deleted}
-	<div class="success">
-		Anime erfolgreich gelöscht.
-	</div>
+	<div class="success">Anime erfolgreich gelöscht.</div>
 {/if}
 
 <a class="button" href="/anime/add">+ Anime hinzufügen</a>
@@ -25,22 +51,7 @@
 		<p>Noch keine Anime vorhanden.</p>
 	</div>
 {:else}
-	{#each data.anime as anime}
-		<div class="card">
-			<h2>{anime.title}</h2>
-			<p>{anime.genre}</p>
-			<p>{anime.currentEpisode} / {anime.totalEpisodes} Episoden</p>
-
-			<div class="progress">
-				<div
-					class="progress-fill"
-					style={`width: ${(anime.currentEpisode / anime.totalEpisodes) * 100}%`}
-				></div>
-			</div>
-
-			<a class="button secondary" href={`/anime/${anime._id}`}>
-				Details öffnen
-			</a>
-		</div>
+	{#each filteredAnime as anime}
+		<AnimeCard {anime} />
 	{/each}
 {/if}

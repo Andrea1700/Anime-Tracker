@@ -53,5 +53,47 @@ export const actions = {
 		});
 
 		throw redirect(303, '/?deleted=1');
+	},
+
+	saveNote: async ({ request, params }) => {
+		const formData = await request.formData();
+		const notes = formData.get('notes')?.toString().trim();
+
+		const db = await connectDB();
+
+		await db.collection('anime_tracker').updateOne(
+			{ _id: new ObjectId(params.id) },
+			{
+				$set: {
+					notes
+				}
+			}
+		);
+
+		return {
+			success: 'Notiz wurde gespeichert.'
+		};
+	},
+
+	toggleFavorite: async ({ params }) => {
+		const db = await connectDB();
+
+		const anime = await db.collection('anime_tracker').findOne({
+			_id: new ObjectId(params.id)
+		});
+
+		await db.collection('anime_tracker').updateOne(
+			{ _id: new ObjectId(params.id) },
+			{
+				$set: {
+					favorite: !anime.favorite
+				}
+			}
+		);
+
+		return {
+			success: 'Favorit wurde aktualisiert.'
+		};
 	}
 };
+
