@@ -5,6 +5,15 @@
 </script>
 
 <div class="card">
+
+	{#if anime.imageUrl}
+		<img
+			class="cover"
+			src={anime.imageUrl}
+			alt={`Cover von ${anime.title}`}
+		/>
+	{/if}
+	
 	<h2>{anime.title}</h2>
 	<p>{anime.genre}</p>
 	<p>Status: {anime.status}</p>

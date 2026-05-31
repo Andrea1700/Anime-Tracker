@@ -10,6 +10,7 @@ export const actions = {
 		const currentEpisode = Number(formData.get('currentEpisode'));
 		const totalEpisodes = Number(formData.get('totalEpisodes'));
 		const status = formData.get('status');
+		const imageUrl = formData.get('imageUrl')?.toString().trim();
 
 		if (!title || !genre) {
 			return fail(400, {
@@ -36,7 +37,8 @@ export const actions = {
 			genre,
 			currentEpisode,
 			totalEpisodes,
-			status
+			status,
+			imageUrl
 		});
 
 		throw redirect(303, '/?success=1');

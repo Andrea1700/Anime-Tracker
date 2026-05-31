@@ -38,6 +38,11 @@
 		</select>
 	</label>
 
+	<label>
+		Cover Bild URL
+		<input name="imageUrl" type="text" placeholder="/images/naruto.jpg" />
+	</label>
+
 	<button class="button" type="submit">Anime speichern</button>
 </form>
 

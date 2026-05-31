@@ -117,6 +117,41 @@ export const actions = {
 		};
 	},
 
+	updateEpisode: async ({ request, params }) => {
+		const formData = await request.formData();
+
+		const currentEpisode = Number(formData.get('currentEpisode'));
+
+		const db = await connectDB();
+
+		const anime = await db.collection('anime_tracker').findOne({
+			_id: new ObjectId(params.id)
+		});
+
+		if (
+			currentEpisode < 0 ||
+			currentEpisode > anime.totalEpisodes
+		) {
+			return fail(400, {
+				error: 'Ungültige Episodennummer.'
+			});
+		}
+
+		await db.collection('anime_tracker').updateOne(
+			{ _id: new ObjectId(params.id) },
+			{
+				$set: {
+					currentEpisode
+				}
+			}
+		);
+
+		return {
+			success: 'Fortschritt wurde gespeichert.'
+		};
+	},
+	
+
 	toggleFavorite: async ({ params }) => {
 		const db = await connectDB();
 
