@@ -135,3 +135,11 @@ textarea {
 	background: #d35400;
 	color: white;
 }
+
+select {
+	width: 100%;
+	padding: 10px;
+	margin-top: 6px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+}

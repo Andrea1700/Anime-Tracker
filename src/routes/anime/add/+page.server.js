@@ -9,6 +9,7 @@ export const actions = {
 		const genre = formData.get('genre')?.toString().trim();
 		const currentEpisode = Number(formData.get('currentEpisode'));
 		const totalEpisodes = Number(formData.get('totalEpisodes'));
+		const status = formData.get('status');
 
 		if (!title || !genre) {
 			return fail(400, {
@@ -35,7 +36,7 @@ export const actions = {
 			genre,
 			currentEpisode,
 			totalEpisodes,
-			status: 'watching'
+			status
 		});
 
 		throw redirect(303, '/?success=1');

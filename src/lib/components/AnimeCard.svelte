@@ -7,6 +7,7 @@
 <div class="card">
 	<h2>{anime.title}</h2>
 	<p>{anime.genre}</p>
+	<p>Status: {anime.status}</p>
 	<p>{anime.currentEpisode} / {anime.totalEpisodes} Episoden</p>
 
 	<div class="progress">

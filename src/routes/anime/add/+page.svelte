@@ -29,6 +29,15 @@
 		<input name="totalEpisodes" type="number" min="1" required />
 	</label>
 
+	<label>
+		Status
+		<select name="status">
+			<option value="Watching">Watching</option>
+			<option value="Completed">Completed</option>
+			<option value="Plan to Watch">Plan to Watch</option>
+		</select>
+	</label>
+
 	<button class="button" type="submit">Anime speichern</button>
 </form>
 
