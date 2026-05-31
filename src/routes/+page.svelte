@@ -4,15 +4,27 @@
 	let { data } = $props();
 
 	let selectedGenre = $state('Alle');
+	let searchTerm = $state('');
 
 	let filteredAnime = $derived(
-		selectedGenre === 'Alle'
-			? data.anime
-			: data.anime.filter((a) => a.genre === selectedGenre)
+		data.anime.filter((anime) => {
+			const matchesGenre = selectedGenre === 'Alle' || anime.genre === selectedGenre;
+			const matchesSearch = anime.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+			return matchesGenre && matchesSearch;
+		})
 	);
 </script>
 
 <h1>Anime Tracker</h1>
+
+<input
+	type="text"
+	placeholder="Anime suchen..."
+	bind:value={searchTerm}
+/>
+
+<br /><br />
 
 <div class="filters">
 	<button
@@ -46,9 +58,9 @@
 
 <br /><br />
 
-{#if data.anime.length === 0}
+{#if filteredAnime.length === 0}
 	<div class="card">
-		<p>Noch keine Anime vorhanden.</p>
+		<p>Keine passenden Anime gefunden.</p>
 	</div>
 {:else}
 	{#each filteredAnime as anime}
