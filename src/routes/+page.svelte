@@ -4,14 +4,18 @@
 	let { data } = $props();
 
 	let selectedGenre = $state('Alle');
+	let selectedStatus = $state('Alle');
 	let searchTerm = $state('');
 
 	let filteredAnime = $derived(
 		data.anime.filter((anime) => {
 			const matchesGenre = selectedGenre === 'Alle' || anime.genre === selectedGenre;
+			const matchesStatus =
+	selectedStatus === 'Alle' ||
+	anime.status?.toLowerCase() === selectedStatus.toLowerCase();
 			const matchesSearch = anime.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-			return matchesGenre && matchesSearch;
+			return matchesGenre && matchesSearch && matchesStatus;
 		})
 	);
 </script>
@@ -42,6 +46,38 @@
 			{genre}
 		</button>
 	{/each}
+</div>
+
+<br />
+
+<div class="filters">
+	<button
+		class:selected={selectedStatus === 'Alle'}
+		onclick={() => (selectedStatus = 'Alle')}
+	>
+		Alle Status
+	</button>
+
+	<button
+		class:selected={selectedStatus === 'Watching'}
+		onclick={() => (selectedStatus = 'Watching')}
+	>
+		Watching
+	</button>
+
+	<button
+		class:selected={selectedStatus === 'Completed'}
+		onclick={() => (selectedStatus = 'Completed')}
+	>
+		Completed
+	</button>
+
+	<button
+		class:selected={selectedStatus === 'Plan to Watch'}
+		onclick={() => (selectedStatus = 'Plan to Watch')}
+	>
+		Plan to Watch
+	</button>
 </div>
 
 <br />

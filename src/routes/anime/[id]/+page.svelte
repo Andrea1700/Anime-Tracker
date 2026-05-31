@@ -17,6 +17,32 @@
 	<p><strong>Fortschritt:</strong> {data.anime.currentEpisode} / {data.anime.totalEpisodes}</p>
 </div>
 
+<div class="card">
+	<h2>Status ändern</h2>
+
+	<form method="POST" action="?/updateStatus">
+		<label>
+			Status
+			<select name="status">
+				<option value="Watching" selected={data.anime.status?.toLowerCase() === 'watching'}>
+					Watching
+				</option>
+				<option value="Completed" selected={data.anime.status?.toLowerCase() === 'completed'}>
+					Completed
+				</option>
+				<option
+					value="Plan to Watch"
+					selected={data.anime.status?.toLowerCase() === 'plan to watch'}
+				>
+					Plan to Watch
+				</option>
+			</select>
+		</label>
+
+		<button class="button" type="submit">Status speichern</button>
+	</form>
+</div>
+
 <form method="POST" action="?/updateProgress">
 	<button class="button" type="submit">Fortschritt aktualisieren</button>
 </form>

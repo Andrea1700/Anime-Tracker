@@ -75,6 +75,48 @@ export const actions = {
 		};
 	},
 
+	updateStatus: async ({ request, params }) => {
+		const formData = await request.formData();
+		const status = formData.get('status')?.toString();
+
+		const allowedStatuses = ['Watching', 'Completed', 'Plan to Watch'];
+
+		if (!allowedStatuses.includes(status)) {
+			return fail(400, {
+				error: 'Ungültiger Status.'
+			});
+		}
+
+		const db = await connectDB();
+
+		const anime = await db.collection('anime_tracker').findOne({
+			_id: new ObjectId(params.id)
+		});
+
+		const updateData = {
+			status
+		};
+
+		if (status === 'Completed') {
+			updateData.currentEpisode = anime.totalEpisodes;
+		}
+
+		if (status === 'Plan to Watch') {
+			updateData.currentEpisode = 0;
+		}
+
+		await db.collection('anime_tracker').updateOne(
+			{ _id: new ObjectId(params.id) },
+			{
+				$set: updateData
+			}
+		);
+
+		return {
+			success: 'Status wurde aktualisiert.'
+		};
+	},
+
 	toggleFavorite: async ({ params }) => {
 		const db = await connectDB();
 
