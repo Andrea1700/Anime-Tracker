@@ -263,5 +263,6 @@ Der Einsatz von KI ermöglichte eine schnellere Problemlösung und erleichterte 
 
 - **Figma Mockup:** [https://www.figma.com/design/8bTNXdkTIYdzKLqvecok6t/UI-Anime-Tracker?node-id=0-1&t=hfOFKWlSK8F9VE0L-1]
 - **Deployment:** [https://6a1c6530fb6dda0008b7bfe7--animetracker12.netlify.app/]
+- **GitHub-Repository:** [https://github.com/Andrea1700/Anime-Tracker.git]
 
 - **Geplante zukünftige Erweiterungen:** Mood-basierte Anime-Empfehlungen, Empfehlungssystem, Benutzerkonten, Statistiken und Auswertungen, externe Anime-Datenbank-API, Synchronisation zwischen Geräten.
